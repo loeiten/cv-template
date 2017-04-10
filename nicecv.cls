@@ -44,7 +44,7 @@
 \hypersetup{colorlinks,breaklinks,urlcolor=link,linkcolor=link}
 
 
-% Make the topinfo command
+% topinfo command
 %
 % \topinfo{picturepath}{name}{foot}
 %
@@ -103,7 +103,7 @@
 % =============================================================================
 
 
-% Make the onlineuser command
+% onlineuser command
 %
 % \onlineuser{github}{linkedin}
 %
@@ -152,15 +152,15 @@
 % =============================================================================
 
 
-% Make the education environment
+% education environment
 %
 % \begin{education}
 %   \entry{year}{degree}{title}{location}{description}
 % \end{education}
 %
 % =============================================================================
-\newenvironment{education}{
-    \section{Utdanning}
+\newenvironment{education}[1]{
+    \section{#1}
     % NOTE: Double hash as command is only defined within this environment
     \newcommand{\entry}[5]{
         \begin{tabular}{m{0.25\textwidth}m{0.75\textwidth}}
@@ -181,15 +181,15 @@
 % =============================================================================
 
 
-% Make the work environment
+% work environment
 %
 % \begin{work}
 %   \entry{year}{position}{company}{description}
 % \end{work}
 %
 % =============================================================================
-\newenvironment{work}{
-    \section{Arbeidserfaring}
+\newenvironment{work}[1]{
+    \section{#1}
     % NOTE: Double hash as command is only defined within this environment
     \newcommand{\entry}[3]{
         \begin{tabular}{m{0.225\textwidth}m{0.75\textwidth}}
@@ -206,15 +206,15 @@
 % =============================================================================
 
 
-% Make the awards environment
+% awards environment
 %
 % \begin{awards}
 %   \entry{award}{description}
 % \end{awards}
 %
 % =============================================================================
-\newenvironment{awards}{
-    \section{Priser og utnevnelser}
+\newenvironment{awards}[1]{
+    \section{#1}
     \newdimen\unbaseline
     \unbaseline=\dimexpr-\baselinestretch\baselineskip\relax
     % NOTE: Double hash as command is only defined within this environment
@@ -228,15 +228,15 @@
 % =============================================================================
 
 
-% Make the others environment
+% others environment
 %
 % \begin{others}
 %   \entry{what}{description}
 % \end{others}
 %
 % =============================================================================
-\newenvironment{others}{
-    \section{Interesser og annen erfaring}
+\newenvironment{others}[1]{
+    \section{#1}
     % NOTE: Double hash as command is only defined within this environment
     \newcommand\entry[2]{
 	\textsc{##1} &  ##2\\}
