@@ -27,7 +27,7 @@
 % =============================================================================
 \RequirePackage{tabularx,graphicx,xcolor,multirow,array,hyperref}
 % Needed for ifstrempty
-% \RequirePackage{etoolbox}
+\RequirePackage{etoolbox}
 % Set the page geometry
 \RequirePackage[hmargin=1.25cm,vmargin=1.25cm]{geometry}
 % =============================================================================
@@ -44,36 +44,62 @@
 \hypersetup{colorlinks,breaklinks,urlcolor=link,linkcolor=link}
 
 
-% topinfo command
+% topinfo environment
 %
-% \topinfo{picturepath}{name}{foot}
+% \begin{topinfo}[profile.jpg]
+%     \name{name}
+%     \facts{date}
+%           {phone}
+%           {mail}
+%           {address1}
+%           {address2}
+%     \online{https://github.com/user}
+%            {https://linkedin.com/in/user}
+% \end{topinfo}
 %
 % =============================================================================
-% FIXME: Make this to an environment
-\newcommand{\topinfo}[9]{
+\newenvironment{topinfo}[1][]
+{
+    \ifstrempty{#1}
+    {
+        % Don nothing if empty
+    }
+    {
     \begin{minipage}{0.15\textwidth}
         \begin{center}
             \includegraphics[width=\linewidth]{#1}
         \end{center}
     \end{minipage}
-    \begin{minipage}{0.8\textwidth}
+    }
+    %
+    \ifstrempty{#1}
+    {
+        \minipage{\textwidth}
+    }
+    {
+        \minipage{0.8\textwidth}
+    }
+    \newcommand{\name}[1]{
         \begin{center}
-            {\usekomafont{part} #2}
-            \\
-            \vspace{0.1in}
+            {\usekomafont{part} ##1}
+        \end{center}
+    }
+    \newcommand{\facts}[5]{
+        \begin{center}
             \begin{tabular}{c|c|c|c}
                 F{\o}dt &
-                \multirow{2}{*}{#4} &
-                \multirow{2}{*}{\href{mailto:#5}{#5}} &
-                #6
+                \multirow{2}{*}{##2} &
+                \multirow{2}{*}{\href{mailto:##3}{##3}} &
+                ##4
                 \\
-                #3 &
+                ##1 &
                 &
                 &
-                #7
+                ##5
             \end{tabular}
         \end{center}
-        %
+    }
+    \newcommand{\online}[2]{
         \begin{center}
             \begin{minipage}{0.40\textwidth}
                 \begin{minipage}{0.15\textwidth}
@@ -82,7 +108,7 @@
                     \end{center}
                 \end{minipage}
                 \begin{minipage}{0.60\textwidth}
-                    \href{#8}{#8}
+                    \href{##1}{##1}
                 \end{minipage}
             \end{minipage}
             \begin{minipage}{0.40\textwidth}
@@ -92,47 +118,16 @@
                     \end{center}
                 \end{minipage}
                 \begin{minipage}{0.60\textwidth}
-                    \href{#9}{#9}
+                    \href{##2}{##2}
                 \end{minipage}
             \end{minipage}
         \end{center}
-    \end{minipage}
+    }
+}
+{
+    \endminipage
     \\
     \vspace{0.2in}
-}
-% =============================================================================
-
-
-% onlineuser command
-%
-% \onlineuser{github}{linkedin}
-%
-% =============================================================================
-\newcommand{\onlineuser}[2]{
-    \begin{minipage}{0.40\textwidth}
-        \begin{minipage}{0.10\textwidth}
-            \begin{center}
-                \includegraphics[width=\linewidth]{fig/github}
-            \end{center}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.85\textwidth}
-            \href{#1}{#1}
-        \end{minipage}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.40\textwidth}
-        \begin{minipage}{0.10\textwidth}
-            \begin{center}
-                \includegraphics[width=\linewidth]{fig/linkedin}
-            \end{center}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.85\textwidth}
-            \href{#2}{#2}
-        \end{minipage}
-    \end{minipage}
-    \\ \vspace{0.2in}
 }
 % =============================================================================
 
@@ -159,7 +154,8 @@
 % \end{education}
 %
 % =============================================================================
-\newenvironment{education}[1]{
+\newenvironment{education}[1]
+{
     \section{#1}
     % NOTE: Double hash as command is only defined within this environment
     \newcommand{\entry}[5]{
@@ -188,7 +184,8 @@
 % \end{work}
 %
 % =============================================================================
-\newenvironment{work}[1]{
+\newenvironment{work}[1]
+{
     \section{#1}
     % NOTE: Double hash as command is only defined within this environment
     \newcommand{\entry}[3]{
@@ -213,14 +210,16 @@
 % \end{awards}
 %
 % =============================================================================
-\newenvironment{awards}[1]{
+\newenvironment{awards}[1]
+{
     \section{#1}
     \newdimen\unbaseline
     \unbaseline=\dimexpr-\baselinestretch\baselineskip\relax
     % NOTE: Double hash as command is only defined within this environment
     \newcommand\entry[2]{
 	\textsc{##1} & {\raggedright ##2\medskip\\}\\[\unbaseline]}
-    \tabularx{\linewidth}{lX}}
+    \tabularx{\linewidth}{lX}
+}
 {
     % End environment by ending the tabular
     \endtabularx
@@ -235,12 +234,14 @@
 % \end{others}
 %
 % =============================================================================
-\newenvironment{others}[1]{
+\newenvironment{others}[1]
+{
     \section{#1}
     % NOTE: Double hash as command is only defined within this environment
     \newcommand\entry[2]{
 	\textsc{##1} &  ##2\\}
-    \tabularx{\textwidth}{lX}}
+    \tabularx{\textwidth}{lX}
+}
 {
     % End environment by ending the tabular
     \endtabularx
