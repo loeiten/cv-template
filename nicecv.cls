@@ -48,7 +48,7 @@
 %
 % \begin{topinfo}[profile.jpg]
 %     \name{name}
-%     \facts{date}
+%     \facts{born}{date}
 %           {phone}
 %           {mail}
 %           {address1}
@@ -84,18 +84,18 @@
             {\usekomafont{part} ##1}
         \end{center}
     }
-    \newcommand{\facts}[5]{
+    \newcommand{\facts}[6]{
         \begin{center}
             \begin{tabular}{c|c|c|c}
-                F{\o}dt &
-                \multirow{2}{*}{##2} &
-                \multirow{2}{*}{\href{mailto:##3}{##3}} &
-                ##4
-                \\
                 ##1 &
-                &
-                &
+                \multirow{2}{*}{##3} &
+                \multirow{2}{*}{\href{mailto:##4}{##4}} &
                 ##5
+                \\
+                ##2 &
+                &
+                &
+                ##6
             \end{tabular}
         \end{center}
     }
