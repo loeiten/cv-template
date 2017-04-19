@@ -88,7 +88,7 @@
         \begin{center}
             \begin{tabular}{c|c|c|c}
                 ##1 &
-                \multirow{2}{*}{##3} &
+                \multirow{2}{*}{\href{tel:##3}{##3}} &
                 \multirow{2}{*}{\href{mailto:##4}{##4}} &
                 ##5
                 \\
@@ -149,7 +149,7 @@
 
 % education environment
 %
-% \begin{education}
+% \begin{education}{section name}
 %   \entry{year}{degree}{title}{location}{description}
 % \end{education}
 %
@@ -179,7 +179,7 @@
 
 % work environment
 %
-% \begin{work}
+% \begin{work}{section name}
 %   \entry{year}{position}{company}{description}
 % \end{work}
 %
@@ -205,7 +205,7 @@
 
 % awards environment
 %
-% \begin{awards}
+% \begin{awards}{section name}
 %   \entry{award}{description}
 % \end{awards}
 %
@@ -213,23 +213,25 @@
 \newenvironment{awards}[1]
 {
     \section{#1}
-    \newdimen\unbaseline
-    \unbaseline=\dimexpr-\baselinestretch\baselineskip\relax
     % NOTE: Double hash as command is only defined within this environment
-    \newcommand\entry[2]{
-	\textsc{##1} & {\raggedright ##2\medskip\\}\\[\unbaseline]}
-    \tabularx{\linewidth}{lX}
+    \newcommand{\entry}[2]{
+        \begin{tabular}{l}
+            \textsc{##1}
+        \end{tabular}
+        \begin{tabular}{m{0.05\textwidth}m{0.95\textwidth}}
+            & ##2
+        \end{tabular}
+    }
 }
 {
-    % End environment by ending the tabular
-    \endtabularx
+    % Do nothing at the end of this environment
 }
 % =============================================================================
 
 
 % others environment
 %
-% \begin{others}
+% \begin{others}{section name}
 %   \entry{what}{description}
 % \end{others}
 %
@@ -241,6 +243,31 @@
     \newcommand\entry[2]{
 	\textsc{##1} &  ##2\\}
     \tabularx{\textwidth}{lX}
+}
+{
+    % End environment by ending the tabular
+    \endtabularx
+}
+% =============================================================================
+
+
+% references environment
+%
+% \begin{references}{section name}
+%   \entry{name}{description}{phone}{email}
+% \end{references}
+%
+% =============================================================================
+\newenvironment{references}[1]
+{
+    \section{#1}
+    % NOTE: Double hash as command is only defined within this environment
+    \newcommand\entry[4]{
+	\textsc{##1} & \multirow{2}{*}{Tel.: \href{tel:##3}{##3}} & \multirow{2}{*}{Mail: \href{mailto:##4}{##4}}\\
+	\textit{##2} &&  \\
+        &\\
+    }
+    \tabularx{\textwidth}{XXX}
 }
 {
     % End environment by ending the tabular
