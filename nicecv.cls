@@ -40,7 +40,7 @@
 % Set fontstyle
 \setkomafont{section}{\scshape\Large\mdseries\color[HTML]{801010}}
 % Hyperlinks
-\definecolor{link}{HTML}{002fff}
+\definecolor{link}{HTML}{002FFF}
 \hypersetup{colorlinks,breaklinks,urlcolor=link,linkcolor=link}
 
 
