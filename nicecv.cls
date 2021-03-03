@@ -43,6 +43,11 @@
 \definecolor{link}{HTML}{002FFF}
 \hypersetup{colorlinks,breaklinks,urlcolor=link,linkcolor=link}
 
+% Define no page break
+% https://tex.stackexchange.com/questions/94699/absolutely-definitely-preventing-page-break
+\newenvironment{absolutelynopagebreak}
+  {\par\nobreak\vfil\penalty0\vfilneg\vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup\prevdepth=\tpd}
 
 % topinfo environment
 %
@@ -104,7 +109,7 @@
             \begin{minipage}{0.40\textwidth}
                 \begin{minipage}{0.15\textwidth}
                     \begin{center}
-                        \includegraphics[width=\linewidth]{fig/github}
+                        \includegraphics[width=\linewidth]{../fig/github}
                     \end{center}
                 \end{minipage}
                 \begin{minipage}{0.60\textwidth}
@@ -114,7 +119,7 @@
             \begin{minipage}{0.40\textwidth}
                 \begin{minipage}{0.15\textwidth}
                     \begin{center}
-                        \includegraphics[width=\linewidth]{fig/linkedin}
+                        \includegraphics[width=\linewidth]{../fig/linkedin}
                     \end{center}
                 \end{minipage}
                 \begin{minipage}{0.60\textwidth}
@@ -166,6 +171,32 @@
             & \textit{{\scshape ##3}} \\
             & \textit{ ##4 } \\
             & \vspace{0.1in} ##5
+        \end{tabular}
+    }
+    \newcommand{\shortentry}[4]{
+        \begin{tabular}{m{0.25\textwidth}m{0.75\textwidth}}
+            \large ##1 & \large {\bfseries ##2}
+        \end{tabular}
+        \begin{tabular}{m{0.05\textwidth}m{0.95\textwidth}}
+            & \hspace{0.8in} \textit{{\scshape ##3}} \\
+            & \vspace{0.1in} ##4
+        \end{tabular}
+    }
+    \newcommand{\shortheadentry}[3]{
+        \begin{tabular}{m{0.25\textwidth}m{0.75\textwidth}}
+            \large ##1 & \large {\bfseries ##2}
+        \end{tabular}
+        \begin{tabular}{m{0.05\textwidth}m{0.95\textwidth}}
+            & \vspace{0.1in} ##3
+        \end{tabular}
+    }
+    \newcommand{\shortbottomentry}[4]{
+        \begin{tabular}{m{0.25\textwidth}m{0.75\textwidth}}
+            \large ##1 & \large {\bfseries ##2}
+        \end{tabular}
+        \begin{tabular}{m{0.05\textwidth}m{0.95\textwidth}}
+            & \textit{{\scshape ##3}} \\
+            & \textit{ ##4 } \\
         \end{tabular}
     }
 }
@@ -272,5 +303,7 @@
 {
     % End environment by ending the tabular
     \endtabularx
+    \hspace*{-1in}
 }
 % =============================================================================
+
